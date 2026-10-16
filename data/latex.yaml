@@ -144,6 +144,8 @@ templates:
   sub: "{base} {sub}"                 # a_n → a n
   frac: "{den}分之{num}"              # \frac{a}{b} → b 分之 a
   frac_den_compound: "{den}，分之{num}"  # 分母是多项式时停一下：三的 n 次方减一，分之一
+  frac_product: "{den}分之一乘{num}"    # 分子是乘积：\frac{n(n+1)}{2} → 二分之一乘 n 乘 n 加一
+  frac_den_compound_product: "{den}，分之一乘{num}"
   sqrt: 根号{arg}
   sqrt_compound: 根号下{arg}
   root: "{index}次根号{arg}"
@@ -218,6 +220,9 @@ examples:
   - {tex: "-4n", say: "负四 n"}
   - {tex: "x=-1", say: "x 等于负一"}
   - {tex: "\\frac{1}{2}n(n+1)", say: "二分之一乘 n 乘 n 加一"}
+  - {tex: "\\frac{n(n+1)}{2}", say: "二分之一乘 n 乘 n 加一"}
+  - {tex: "\\frac{n(n+1)}{2}\\ge\\lambda n", say: "二分之一乘 n 乘 n 加一，大于等于拉姆达 n"}
+  - {tex: "\\frac{3n}{2}", say: "二分之三 n"}
   - {tex: "(n+1)(n+2)", say: "n 加一，乘 n 加二"}
   - {tex: "n(n+1)", say: "n 乘 n 加一"}
   - {tex: "x_{n+1}=px_n+q", say: "x n 加一，等于 p 乘 x n 加 q"}

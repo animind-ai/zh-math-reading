@@ -319,6 +319,7 @@ def _is_op(items: list[_Node], raw: str) -> bool:
 class _Reader:
     def __init__(self):
         self.r = latex_rules()
+        self.product = False  # 最近一次 line() 读的是不是乘积（顶层念了“乘”），分数分子用
 
     def tpl(self, name: str, **values: str) -> str:
         return fill(self.r["templates"][name], **values)
@@ -334,14 +335,17 @@ class _Reader:
         if len(parts) == 1:
             return self.line(parts[0])
         parts = [p for p in parts if p]
+        self.product = False
         simple = all(len(p) == 1 for p in parts)
         sep = self.r["comma"]["list" if simple else "clause"]
-        return sep.join(self.line(p)[0] for p in parts), True
+        text = sep.join(self.line(p)[0] for p in parts)
+        self.product = False
+        return text, True
 
     def line(self, items: list[_Node]) -> tuple[str, bool]:
         pieces = [p for p in (self.piece(n) for n in items) if p.text or p.kind in ("ellipsis", "percent")]
         pieces = self.combine(pieces)
-        out, prev, compound = "", None, False
+        out, prev, compound, product = "", None, False, False
         for p in pieces:
             if p.kind in ("op", "rel"):
                 if prev is None or prev.kind in ("op", "rel", "unary"):
@@ -351,6 +355,7 @@ class _Reader:
                     prev = p
                     continue
                 compound = True
+                product = product or p.raw in ("*", "\\cdot", "\\times")
                 if (prev.soft or prev.hard) and out and out[-1] not in _PUNCT:
                     out += "，"
                 out = join(out, p.text)
@@ -362,7 +367,9 @@ class _Reader:
                 if prev.hard:
                     out += "，"
                 out = join(join(out, "乘"), p.text)
+                product = True
             prev = p
+        self.product = product
         return out, compound
 
     @staticmethod
@@ -450,8 +457,11 @@ class _Reader:
             return _Piece(self.tpl("abs", arg=self.seq(n.args)[0]), "abs")
         if k == "frac":
             num, num_c = self.seq(n.args[0])
+            product = self.product
             den, den_c = self.seq(n.args[1])
-            return _Piece(self.tpl("frac_den_compound" if den_c else "frac", num=num, den=den), "frac", soft=num_c)
+            # 分子是乘积时“二分之 n 乘 n 加一”有歧义，按讲稿念成“二分之一乘 n 乘 n 加一”；后面跟任何东西都停一下
+            name = ("frac_den_compound" if den_c else "frac") + ("_product" if product else "")
+            return _Piece(self.tpl(name, num=num, den=den), "frac", soft=num_c, hard=product)
         if k == "sqrt":
             arg, comp = self.seq(n.args[0])
             if n.extra:
