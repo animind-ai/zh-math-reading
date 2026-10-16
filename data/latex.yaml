@@ -1,0 +1,256 @@
+# LaTeX → 中文读法规则。
+# 读法风格取自 §6.7 已经配好音的讲稿：字母原样念，字母和中文之间留空格（TTS 不会把它们粘成一个英文词），
+# 下标跟在字母后面念（a_{n+1} → “a n 加一”），数字一律念中文（12 → 十二）。
+# 模板里的 {名字} 是占位符；拼接时字母两侧自动留空格，中文之间不留。
+# 本文件以 CC BY 4.0 发布，作者 Boxi Yu。
+
+# 运算符与关系符。kind 决定拼接规则：
+#   op  = 二元运算（加、减、乘……），它前面如果是带复合下标/括号的式子，会补一个逗号停顿；
+#   rel = 关系（等于、小于……），同上；
+#   word = 普通词，直接拼接。
+symbols:
+  "+": {say: 加, kind: op}
+  "-": {say: 减, kind: op}
+  \cdot: {say: 乘, kind: op}
+  \times: {say: 乘, kind: op}
+  \div: {say: 除以, kind: op}
+  "/": {say: 除以, kind: op}
+  \pm: {say: 正负, kind: op}
+  \mp: {say: 负正, kind: op}
+  "=": {say: 等于, kind: rel}
+  \ne: {say: 不等于, kind: rel}
+  \neq: {say: 不等于, kind: rel}
+  "<": {say: 小于, kind: rel}
+  ">": {say: 大于, kind: rel}
+  \lt: {say: 小于, kind: rel}
+  \gt: {say: 大于, kind: rel}
+  \le: {say: 小于等于, kind: rel}
+  \leq: {say: 小于等于, kind: rel}
+  \leqslant: {say: 小于等于, kind: rel}
+  \ge: {say: 大于等于, kind: rel}
+  \geq: {say: 大于等于, kind: rel}
+  \geqslant: {say: 大于等于, kind: rel}
+  \approx: {say: 约等于, kind: rel}
+  \equiv: {say: 恒等于, kind: rel}
+  \in: {say: 属于, kind: rel}
+  \notin: {say: 不属于, kind: rel}
+  \subset: {say: 真包含于, kind: rel}
+  \subsetneq: {say: 真包含于, kind: rel}
+  \subseteq: {say: 包含于, kind: rel}
+  \supset: {say: 真包含, kind: rel}
+  \supseteq: {say: 包含, kind: rel}
+  \cap: {say: 交, kind: op}
+  \cup: {say: 并, kind: op}
+  \perp: {say: 垂直于, kind: rel}
+  \parallel: {say: 平行于, kind: rel}
+  \sim: {say: 相似于, kind: rel}
+  \cong: {say: 全等于, kind: rel}
+  \Rightarrow: {say: 推出, kind: rel}
+  \Longrightarrow: {say: 推出, kind: rel}
+  \implies: {say: 推出, kind: rel}
+  \Leftarrow: {say: 由……推出, kind: rel}
+  \Leftrightarrow: {say: 等价于, kind: rel}
+  \iff: {say: 等价于, kind: rel}
+  \to: {say: 趋向于, kind: rel}
+  \rightarrow: {say: 趋向于, kind: rel}
+  \mid: {say: 满足, kind: rel}
+  \because: {say: 因为, kind: word}
+  \therefore: {say: 所以, kind: word}
+  \infty: {say: 无穷大, kind: word}
+  \emptyset: {say: 空集, kind: word}
+  \varnothing: {say: 空集, kind: word}
+  \angle: {say: 角, kind: word}
+  \triangle: {say: 三角形, kind: word}
+  \odot: {say: 圆, kind: word}
+  \checkmark: {say: "", kind: word}
+  \forall: {say: 任意, kind: word}
+  \exists: {say: 存在, kind: word}
+  \neg: {say: 非, kind: word}
+  \land: {say: 且, kind: op}
+  \wedge: {say: 且, kind: op}
+  \lor: {say: 或, kind: op}
+  \vee: {say: 或, kind: op}
+
+# 希腊字母：念中文音译，和讲稿里的“拉姆达”一致。
+greek:
+  alpha: 阿尔法
+  beta: 贝塔
+  gamma: 伽马
+  Gamma: 伽马
+  delta: 德尔塔
+  Delta: 德尔塔
+  epsilon: 艾普西隆
+  varepsilon: 艾普西隆
+  zeta: 泽塔
+  eta: 伊塔
+  theta: 西塔
+  Theta: 西塔
+  lambda: 拉姆达
+  Lambda: 拉姆达
+  mu: 缪
+  nu: 纽
+  xi: 克西
+  pi: 派
+  Pi: 派
+  rho: 柔
+  sigma: 西格玛
+  Sigma: 西格玛
+  tau: 套
+  phi: 斐
+  varphi: 斐
+  Phi: 斐
+  chi: 卡伊
+  psi: 普西
+  omega: 欧米伽
+  Omega: 欧米伽
+
+# 函数名：念英文缩写（课堂上就这么念），后面的自变量直接跟上。
+functions:
+  sin: sin
+  cos: cos
+  tan: tan
+  cot: cot
+  arcsin: arcsin
+  arccos: arccos
+  arctan: arctan
+  ln: ln
+  lg: lg
+  exp: exp
+  max: max
+  min: min
+
+# 后面紧跟圆括号时当作函数调用的字母：f(x) → “f x”，而 n(n+1) 仍是乘法。
+function_letters: [f, g, h, F, G, H]
+
+# 数集。键是“字母+上下标”，用 \mathbb / \mathbf / 裸字母写都认。
+sets:
+  "N": 自然数集
+  "N*": 正整数集
+  "N+": 正整数集
+  "Z": 整数集
+  "Q": 有理数集
+  "R": 实数集
+  "C": 复数集
+
+# 乘方：指数是 2、3 时用“平方”“立方”，其余用模板。
+powers:
+  "2": 的平方
+  "3": 的立方
+  template: 的{exp}次方
+  degree: 度          # 30^\circ
+  prime: 撇           # f'(x)
+
+templates:
+  sub: "{base} {sub}"                 # a_n → a n
+  frac: "{den}分之{num}"              # \frac{a}{b} → b 分之 a
+  frac_den_compound: "{den}，分之{num}"  # 分母是多项式时停一下：三的 n 次方减一，分之一
+  sqrt: 根号{arg}
+  sqrt_compound: 根号下{arg}
+  root: "{index}次根号{arg}"
+  abs: "{arg}的绝对值"
+  vector: 向量{arg}
+  log: 以{base}为底{arg}的对数
+  percent: 百分之{arg}
+  coef_sub: "{num}倍的{arg}"          # 2b_{n+1} → 二倍的 b n 加一
+  sum: "{var}从{from}到{to}求和，"
+  prod: "{var}从{from}到{to}求积，"
+  lim: "{cond}时的极限，"
+  binom: 组合数 C {n} {k}
+
+# 区间：方括号、或写在“属于”后面的两元括号读成区间；其他圆括号里的逗号照常念顿号（点的坐标）。
+interval:
+  "[]": 闭区间
+  "()": 开区间
+  "[)": 左闭右开区间
+  "(]": 左开右闭区间
+  template: "{kind}{a}到{b}"
+
+# 省略号：夹在两个运算符之间时整体念“一直加到”/“一直乘到”。
+ellipsis:
+  between_plus: 一直加到
+  between_times: 一直乘到
+  other: 等等
+
+# 数学模式里的逗号：几个单项并列时念顿号（2,4,8 → 二、四、八），否则念逗号。
+comma:
+  list: 、
+  clause: ，
+
+# 没有读法、直接忽略的排版命令。
+ignore: [displaystyle, textstyle, left, right, big, Big, bigg, Bigg, quad, qquad, ",", ";", ":", "!", " ", limits, nolimits]
+
+# 把参数原样（读其内容）输出的字体/装饰命令。
+passthrough: [mathrm, mathit, mathbf, mathbb, mathcal, boldsymbol, bm, operatorname, overline, underline, widehat, hat, bar, tilde, mathop]
+
+# 示例：每一条都是测试用例（tests/test_latex.py 逐条检查）。多数取自 §6.7 讲稿里人工写好的读法。
+examples:
+  - {tex: "a_n", say: "a n"}
+  - {tex: "A_8", say: "A 八"}
+  - {tex: "a_{n+1}", say: "a n 加一"}
+  - {tex: "b_{n-1}", say: "b n 减一"}
+  - {tex: "a_{12}", say: "a 十二"}
+  - {tex: "x^2", say: "x 的平方"}
+  - {tex: "x^3", say: "x 的立方"}
+  - {tex: "2^n", say: "二的 n 次方"}
+  - {tex: "2^{2n+2}", say: "二的二 n 加二次方"}
+  - {tex: "3^{n-1}", say: "三的 n 减一次方"}
+  - {tex: "x^{-1}", say: "x 的负一次方"}
+  - {tex: "a_{n+1}^2", say: "a n 加一的平方"}
+  - {tex: "a_{n+1}^2-a_na_{n+2}=d", say: "a n 加一的平方，减 a n 乘 a n 加二，等于 d"}
+  - {tex: "a_{n+1}^2=a_na_{n+2}", say: "a n 加一的平方，等于 a n 乘 a n 加二"}
+  - {tex: "a_n=2^n", say: "a n 等于二的 n 次方"}
+  - {tex: "\\frac{1}{2}", say: "二分之一"}
+  - {tex: "\\frac{a}{b}", say: "b 分之 a"}
+  - {tex: "\\dfrac{n+1}{2}", say: "二分之 n 加一"}
+  - {tex: "\\frac{1}{a_n}", say: "a n 分之一"}
+  - {tex: "\\frac{1}{3^n-1}", say: "三的 n 次方减一，分之一"}
+  - {tex: "\\frac{1}{6}n", say: "六分之一乘 n"}
+  - {tex: "\\lambda\\le\\dfrac{n+1}{2}", say: "拉姆达小于等于二分之 n 加一"}
+  - {tex: "\\lambda\\le 1", say: "拉姆达小于等于一"}
+  - {tex: "S_n\\ge\\lambda b_n", say: "S n 大于等于拉姆达乘 b n"}
+  - {tex: "b_n+b_{n+2}=2b_{n+1}", say: "b n 加 b n 加二，等于二倍的 b n 加一"}
+  - {tex: "b_{n+1}b_{n+2}", say: "b n 加一乘 b n 加二"}
+  - {tex: "2^2-1\\cdot b_3=1", say: "二的平方减一乘 b 三等于一"}
+  - {tex: "b_n=n", say: "b n 等于 n"}
+  - {tex: "a_n=2n", say: "a n 等于二 n"}
+  - {tex: "k\\cdot 2^{n+2-k}", say: "k 乘二的 n 加二减 k 次方"}
+  - {tex: "c_n=2^{n+3}-4n-8", say: "c n 等于二的 n 加三次方减四 n 减八"}
+  - {tex: "-4n", say: "负四 n"}
+  - {tex: "x=-1", say: "x 等于负一"}
+  - {tex: "\\frac{1}{2}n(n+1)", say: "二分之一乘 n 乘 n 加一"}
+  - {tex: "(n+1)(n+2)", say: "n 加一，乘 n 加二"}
+  - {tex: "n(n+1)", say: "n 乘 n 加一"}
+  - {tex: "x_{n+1}=px_n+q", say: "x n 加一，等于 p 乘 x n 加 q"}
+  - {tex: "a_1+a_2+\\cdots+a_n", say: "a 一加 a 二一直加到 a n"}
+  - {tex: "2,4,8", say: "二、四、八"}
+  - {tex: "4^2=2\\times 8", say: "四的平方等于二乘八"}
+  - {tex: "d\\ne 0", say: "d 不等于零"}
+  - {tex: "d=0", say: "d 等于零"}
+  - {tex: "n\\in\\mathbf{N}^*", say: "n 属于正整数集"}
+  - {tex: "x\\in\\mathbb{R}", say: "x 属于实数集"}
+  - {tex: "\\{b_n\\}", say: "b n"}
+  - {tex: "\\sqrt{2}", say: "根号二"}
+  - {tex: "2\\sqrt{3}", say: "二根号三"}
+  - {tex: "\\sqrt{x+1}", say: "根号下 x 加一"}
+  - {tex: "\\sqrt[3]{x}", say: "三次根号 x"}
+  - {tex: "|x-1|", say: "x 减一的绝对值"}
+  - {tex: "\\sin^2 x+\\cos^2 x=1", say: "sin x 的平方加 cos x 的平方等于一"}
+  - {tex: "\\log_2 x", say: "以二为底 x 的对数"}
+  - {tex: "f(x)=x^2", say: "f x 等于 x 的平方"}
+  - {tex: "f'(x)", say: "f 撇 x"}
+  - {tex: "\\angle A=30^\\circ", say: "角 A 等于三十度"}
+  - {tex: "\\triangle ABC", say: "三角形 A B C"}
+  - {tex: "\\overrightarrow{AB}", say: "向量 A B"}
+  - {tex: "\\alpha+\\beta=\\pi", say: "阿尔法加贝塔等于派"}
+  - {tex: "0.5", say: "零点五"}
+  - {tex: "3.14", say: "三点一四"}
+  - {tex: "100", say: "一百"}
+  - {tex: "121", say: "一百二十一"}
+  - {tex: "50\\%", say: "百分之五十"}
+  - {tex: "\\sum_{k=1}^{n} a_k", say: "k 从一到 n 求和，a k"}
+  - {tex: "a\\div b", say: "a 除以 b"}
+  - {tex: "x\\pm 1", say: "x 正负一"}
+  - {tex: "A\\cap B", say: "A 交 B"}
+  - {tex: "\\text{且}", say: "且"}
+  - {tex: "n>0", say: "n 大于零"}
+  - {tex: "n=1", say: "n 等于一"}

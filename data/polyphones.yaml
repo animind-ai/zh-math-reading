@@ -1,0 +1,162 @@
+# 数学语境里的多音字。
+# 本文件以 CC BY 4.0 发布，作者 Boxi Yu。
+#
+# chars：要盯的多音字。
+#   default  数学里最常见的读音；
+#   strict   true 时，这个字只要不在下面 entries 收录的词里出现，lint 就提示“上下文没收录，确认读音”；
+#            false 时只在命中 risky 词条时提示。
+# entries：含多音字的词。
+#   word     词（按最长匹配）；
+#   char     词里的多音字；
+#   pinyin   这个字在词里的读音；
+#   why      为什么收这一条；
+#   risky    true = TTS 容易读错，lint 会提示；
+#   rewrite  建议的替换说法（只是建议，normalize 不会自动替换，避免改动已缓存的音频）。
+
+chars:
+  数: {default: shù, strict: false, why: 数学里几乎都读 shù（名词）；动词“数一数”“倒数第几”读 shǔ}
+  差: {default: chā, strict: true, why: chā（差值、等差）/ chà（差一点、差了）/ chāi（出差）/ cī（参差），数学讲稿里 chā 和 chà 都常见}
+  重: {default: chóng, strict: true, why: chóng（重合、重根）/ zhòng（重心、重要），两种在数学里都常见}
+  行: {default: háng, strict: true, why: háng（行列式、第一行）/ xíng（平行、进行），两种在数学里都常见}
+  率: {default: lǜ, strict: true, why: lǜ（概率、斜率）/ shuài（率先、直率）}
+  长: {default: cháng, strict: true, why: cháng（长度、边长）/ zhǎng（增长、长大），增长率题里两种同时出现}
+  调: {default: diào, strict: true, why: diào（单调）/ tiáo（调和数列、调整）}
+  奇: {default: jī, strict: true, why: jī（奇数、奇函数）/ qí（奇怪、奇点）}
+  称: {default: chēng, strict: true, why: chēng（称为）/ chèn（对称、匀称）}
+  为: {default: wéi, strict: false, why: 定义句“公差为一”读 wéi；“因为”“为什么”读 wèi}
+  得: {default: dé, strict: false, why: dé（得三、得到）/ de（记得）/ děi（得证明、还得）}
+  解: {default: jiě, strict: false, why: 数学里几乎都读 jiě；姓氏、“解数”读 xiè，极少见}
+  量: {default: liàng, strict: false, why: liàng（向量、变量）/ liáng（测量、量一量）}
+  角: {default: jiǎo, strict: false, why: jiǎo（角度）/ jué（角色）}
+  曲: {default: qū, strict: false, why: qū（曲线）/ qǔ（歌曲）}
+  间: {default: jiān, strict: false, why: jiān（区间、之间）/ jiàn（间隔、间断）}
+  降: {default: jiàng, strict: false, why: jiàng（降幂）/ xiáng（投降）}
+  转: {default: zhuǎn, strict: false, why: zhuǎn（旋转、转化）/ zhuàn（转动、转圈）}
+  相: {default: xiāng, strict: false, why: xiāng（相等、相减）/ xiàng（相位）}
+  倒: {default: dào, strict: false, why: dào（倒数、倒序）/ dǎo（倒下）}
+
+entries:
+  # 数
+  - {word: 数列, char: 数, pinyin: shù, why: 本课程最高频的词，TTS 读对，但收进来做基准}
+  - {word: 函数, char: 数, pinyin: shù, why: 高频}
+  - {word: 常数, char: 数, pinyin: shù, why: 高频}
+  - {word: 系数, char: 数, pinyin: shù, why: 待定系数}
+  - {word: 倒数, char: 倒, pinyin: dào, why: 倒数（reciprocal）读 dào shù}
+  - {word: 倒数第, char: 数, pinyin: shǔ, why: “倒数第二项”是 dào shǔ，和“倒数”（dào shù）同形, risky: true, rewrite: 从后往前数第}
+  - {word: 数一数, char: 数, pinyin: shǔ, why: 动词 shǔ, risky: true, rewrite: 点一点}
+  - {word: 数出, char: 数, pinyin: shǔ, why: 动词 shǔ, risky: true, rewrite: 算出}
+  - {word: 不算数, char: 数, pinyin: shù, why: “猜出来的不算数”读 shù}
+  # 差
+  - {word: 等差, char: 差, pinyin: chā, why: 等差数列、等差中项、等差比}
+  - {word: 公差, char: 差, pinyin: chā, why: 高频}
+  - {word: 差数列, char: 差, pinyin: chā, why: 一阶差数列、二阶差数列}
+  - {word: 差分, char: 差, pinyin: chā, why: 差分表}
+  - {word: 做差, char: 差, pinyin: chā, why: 往下做差}
+  - {word: 作差, char: 差, pinyin: chā, why: 作差法}
+  - {word: 次差, char: 差, pinyin: chā, why: 做三次差、做一次差}
+  - {word: 差值, char: 差, pinyin: chā, why: 差值}
+  - {word: 相差, char: 差, pinyin: chā, why: 相差一个常数（xiāng chā）}
+  - {word: 之差, char: 差, pinyin: chā, why: 两项之差}
+  - {word: 的差, char: 差, pinyin: chā, why: “两数的差”}
+  - {word: 差是, char: 差, pinyin: chā, why: “差是三的 n 减一次方”}
+  - {word: 差为, char: 差, pinyin: chā, why: “差为常数”}
+  - {word: 差了, char: 差, pinyin: chà, why: “差了一个常数”“差了三项”口语读 chà，TTS 可能读成 chā, risky: true, rewrite: 相差 / 还缺}
+  - {word: 差一个, char: 差, pinyin: chà, why: “差一个常数”口语读 chà, risky: true, rewrite: 相差一个}
+  - {word: 只差, char: 差, pinyin: chà, why: “只差一步”读 chà, risky: true, rewrite: 只缺}
+  - {word: 差不多, char: 差, pinyin: chà, why: 口语词}
+  - {word: 误差, char: 差, pinyin: chā, why: 统计、近似计算}
+  - {word: 方差, char: 差, pinyin: chā, why: 统计}
+  - {word: 标准差, char: 差, pinyin: chā, why: 统计}
+  - {word: 偏差, char: 差, pinyin: chā, why: 统计}
+  # 重
+  - {word: 重合, char: 重, pinyin: chóng, why: 两直线重合，TTS 偶尔读 zhòng}
+  - {word: 重复, char: 重, pinyin: chóng, why: 高频}
+  - {word: 重根, char: 重, pinyin: chóng, why: 二重根}
+  - {word: 重叠, char: 重, pinyin: chóng, why: 图形重叠}
+  - {word: 重新, char: 重, pinyin: chóng, why: 高频}
+  - {word: 重心, char: 重, pinyin: zhòng, why: 三角形重心}
+  - {word: 重要, char: 重, pinyin: zhòng, why: 高频}
+  - {word: 重点, char: 重, pinyin: zhòng, why: 高频}
+  - {word: 重量, char: 重, pinyin: zhòng, why: 应用题}
+  - {word: 加重, char: 重, pinyin: zhòng, why: 加重负担}
+  # 行
+  - {word: 行列式, char: 行, pinyin: háng, why: TTS 容易读成 xíng}
+  - {word: 第一行, char: 行, pinyin: háng, why: 表格、矩阵的行}
+  - {word: 这一行, char: 行, pinyin: háng, why: 差分表的行}
+  - {word: 一行, char: 行, pinyin: háng, why: 表格的行；“一行人”极少见}
+  - {word: 行向量, char: 行, pinyin: háng, why: 矩阵}
+  - {word: 平行, char: 行, pinyin: xíng, why: 高频}
+  - {word: 进行, char: 行, pinyin: xíng, why: 高频}
+  - {word: 可行, char: 行, pinyin: xíng, why: 可行域}
+  - {word: 不行, char: 行, pinyin: xíng, why: 口语}
+  - {word: 行程, char: 行, pinyin: xíng, why: 行程问题}
+  # 率
+  - {word: 概率, char: 率, pinyin: lǜ, why: 高频}
+  - {word: 斜率, char: 率, pinyin: lǜ, why: 高频}
+  - {word: 频率, char: 率, pinyin: lǜ, why: 统计}
+  - {word: 曲率, char: 率, pinyin: lǜ, why: 曲率}
+  - {word: 增长率, char: 率, pinyin: lǜ, why: 应用题；同时含“长”zhǎng}
+  - {word: 变化率, char: 率, pinyin: lǜ, why: 导数}
+  - {word: 圆周率, char: 率, pinyin: lǜ, why: 派}
+  - {word: 利率, char: 率, pinyin: lǜ, why: 应用题}
+  - {word: 效率, char: 率, pinyin: lǜ, why: 工程问题}
+  - {word: 比率, char: 率, pinyin: lǜ, why: 比率}
+  - {word: 率先, char: 率, pinyin: shuài, why: 非数学读音}
+  # 长
+  - {word: 长度, char: 长, pinyin: cháng, why: 高频}
+  - {word: 边长, char: 长, pinyin: cháng, why: 高频}
+  - {word: 周长, char: 长, pinyin: cháng, why: 高频}
+  - {word: 弧长, char: 长, pinyin: cháng, why: 弧长公式}
+  - {word: 长方形, char: 长, pinyin: cháng, why: 高频}
+  - {word: 长方体, char: 长, pinyin: cháng, why: 立体几何}
+  - {word: 长轴, char: 长, pinyin: cháng, why: 椭圆}
+  - {word: 模长, char: 长, pinyin: cháng, why: 向量的模长}
+  - {word: 增长, char: 长, pinyin: zhǎng, why: 应用题；容易读成 cháng, risky: true, rewrite: 增加}
+  - {word: 成长, char: 长, pinyin: zhǎng, why: 口语}
+  # 调
+  - {word: 单调, char: 调, pinyin: diào, why: 单调递增}
+  - {word: 调和, char: 调, pinyin: tiáo, why: 调和数列、调和级数；TTS 可能读成 diào, risky: true}
+  - {word: 调整, char: 调, pinyin: tiáo, why: 口语}
+  # 奇
+  - {word: 奇数, char: 奇, pinyin: jī, why: TTS 偶尔读成 qí}
+  - {word: 奇函数, char: 奇, pinyin: jī, why: 函数奇偶性}
+  - {word: 奇偶, char: 奇, pinyin: jī, why: 奇偶性}
+  - {word: 奇数项, char: 奇, pinyin: jī, why: 数列奇数项}
+  - {word: 奇次, char: 奇, pinyin: jī, why: 奇次方}
+  - {word: 奇点, char: 奇, pinyin: qí, why: 高等数学的奇点读 qí}
+  - {word: 奇怪, char: 奇, pinyin: qí, why: 口语}
+  # 称
+  - {word: 对称, char: 称, pinyin: chèn, why: 对称轴、对称中心；TTS 偶尔读 chēng}
+  - {word: 称为, char: 称, pinyin: chēng, why: 定义句}
+  - {word: 称作, char: 称, pinyin: chēng, why: 定义句}
+  - {word: 简称, char: 称, pinyin: chēng, why: 定义句}
+  # 为
+  - {word: 因为, char: 为, pinyin: wèi, why: 高频}
+  - {word: 为什么, char: 为, pinyin: wèi, why: 高频}
+  - {word: 为了, char: 为, pinyin: wèi, why: 高频}
+  - {word: 公差为, char: 为, pinyin: wéi, why: 定义句“公差为一”}
+  - {word: 公比为, char: 为, pinyin: wéi, why: 定义句}
+  - {word: 记为, char: 为, pinyin: wéi, why: 定义句}
+  - {word: 为底, char: 为, pinyin: wéi, why: 以二为底的对数}
+  # 得
+  - {word: 得到, char: 得, pinyin: dé, why: 高频}
+  - {word: 得证明, char: 得, pinyin: děi, why: “猜出来的不算数，得证明”读 děi，TTS 可能读 dé, risky: true, rewrite: 还要证明}
+  - {word: 还得, char: 得, pinyin: děi, why: “还得再验一遍”读 děi, risky: true, rewrite: 还要}
+  - {word: 就得, char: 得, pinyin: děi, why: “这里就得分类”读 děi, risky: true, rewrite: 就要}
+  # 解 / 量 / 角 / 曲 / 间 / 降 / 转 / 相 / 弧
+  - {word: 解集, char: 解, pinyin: jiě, why: 不等式解集}
+  - {word: 解析式, char: 解, pinyin: jiě, why: 函数解析式}
+  - {word: 向量, char: 量, pinyin: liàng, why: 高频}
+  - {word: 变量, char: 量, pinyin: liàng, why: 高频}
+  - {word: 测量, char: 量, pinyin: liáng, why: 应用题；TTS 偶尔读 liàng, risky: true}
+  - {word: 量一量, char: 量, pinyin: liáng, why: 动词, risky: true, rewrite: 测一测}
+  - {word: 角色, char: 角, pinyin: jué, why: 非数学读音，讲稿里说“角色”时留意, risky: true, rewrite: 作用}
+  - {word: 曲线, char: 曲, pinyin: qū, why: 高频}
+  - {word: 区间, char: 间, pinyin: jiān, why: 高频}
+  - {word: 间隔, char: 间, pinyin: jiàn, why: 读 jiàn，TTS 可能读 jiān, risky: true}
+  - {word: 间断, char: 间, pinyin: jiàn, why: 间断点, risky: true}
+  - {word: 降幂, char: 降, pinyin: jiàng, why: 降幂排列}
+  - {word: 转动, char: 转, pinyin: zhuàn, why: 读 zhuàn, risky: true, rewrite: 旋转}
+  - {word: 旋转, char: 转, pinyin: zhuǎn, why: 几何变换}
+  - {word: 相位, char: 相, pinyin: xiàng, why: 三角函数的相位、初相读 xiàng, risky: true}
+  - {word: 弧度, char: 弧, pinyin: hú, why: 不是多音字，但“弧”字生僻，听音时留意}
